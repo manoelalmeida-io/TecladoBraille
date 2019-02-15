@@ -73,7 +73,7 @@ word = [
     'internet',
     'ilha',
     'impedir',
-    'impacto'
+    'impacto',
 
     'jubileu',
     'judoca',
@@ -107,7 +107,7 @@ word = [
     'navalia',
     'nave',
     'necessidade',
-    'nevar'
+    'nevar',
 
     'obrigado',
     'objeto',

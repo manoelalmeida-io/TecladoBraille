@@ -39,6 +39,13 @@ def play_async(file):
     wave_obj.play()
 
 
+def play(file):
+    sa.stop_all()
+    wave_obj = sa.WaveObject.from_wave_file(file)
+    obj_play = wave_obj.play()
+    obj_play.wait_done()
+
+
 def game(key):
 
     global palavra
@@ -55,8 +62,8 @@ def game(key):
         if key == keyboard.Key.enter:
             if palavra == words[0]:
                 print('correto!')
+                play('sound/phrases/correto.wav')
                 shuffle()
-                play_async('sound/phrases/correto.wav')
             else:
                 if palavra == '':
                     shuffle()
@@ -84,6 +91,7 @@ def shuffle():
 
     random.shuffle(words)
     print(words[0])
+    play_async('sound/words/{}.wav'.format(words[0]))
 
 
 def learn(key):
@@ -94,7 +102,7 @@ def learn(key):
         if key == keyboard.Key.space:
             mode = 1
             print('JOGAR')
-            play_async('sound/phrases/modo_jogo.wav')
+            play('sound/phrases/modo_jogo.wav')
             shuffle()
 
         play_async('sound/keys/{}.wav'.format(str.upper(key.char)))
