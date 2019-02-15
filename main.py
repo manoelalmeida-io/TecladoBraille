@@ -50,17 +50,20 @@ def game(key):
         if key == keyboard.Key.space:
             mode = 0
             print('APRENDER')
+            play_async('sound/verification/aprender.wav')
 
         if key == keyboard.Key.enter:
             if palavra == words[0]:
                 print('correto!')
                 shuffle()
+                play_async('sound/verification/correto.wav')
             else:
                 if palavra == '':
                     shuffle()
                 else:
                     print('errado')
                     print(words[0])
+                    play_async('sound/verification/errado.wav')
             palavra = ''
 
         if key == keyboard.Key.backspace:
@@ -93,7 +96,9 @@ def learn(key):
         if key == keyboard.Key.space:
             mode = 1
             print('JOGAR')
+            play_async('sound/verification/jogo.wav')
             shuffle()
+
 
         play_async('sound/keys/{}.wav'.format(str.upper(key.char)))
 
