@@ -11,8 +11,10 @@ words = word.word
 
 def main():
 
-    if not setup.check_files():
-        setup.generate_files()
+    ok, missing_letters, missing_words, missing_phrases = setup.check_files()
+
+    if not ok:
+        setup.generate_files(missing_letters, missing_words, missing_phrases)
 
     print('Teclado iniciado')
     play_async('sound/phrases/Bem_vindo.wav')

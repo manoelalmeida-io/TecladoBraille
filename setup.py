@@ -6,6 +6,12 @@ from gtts import gTTS
 
 def check_files():
 
+    ok = True
+
+    missing_words = []
+    missing_letters = []
+    missing_phrases = []
+
     words = text.word
     letters = text.letter
     phrases = text.phrases
@@ -15,26 +21,29 @@ def check_files():
         wav_path = 'sound/keys/{}.wav'.format(c)
 
         if not os.path.exists(wav_path):
-            return False
+            missing_letters.append(c)
+            ok = False
 
     for c in words:
 
         wav_path = 'sound/words/{}.wav'.format(c)
 
         if not os.path.exists(wav_path):
-            return False
+            missing_words.append(c)
+            ok = False
 
     for row in phrases:
 
         wav_path = 'sound/phrases/{}.wav'.format(row[0])
 
         if not os.path.exists(wav_path):
-            return False
+            missing_phrases.append(row)
+            ok = False
 
-    return True
+    return ok, missing_letters, missing_words, missing_phrases
 
 
-def generate_files():
+def generate_files(missing_letters, missing_words, missing_phrases):
 
     if not os.path.exists('sound'):
         os.makedirs('sound')
@@ -48,9 +57,9 @@ def generate_files():
     if not os.path.exists('sound/words'):
         os.makedirs('sound/words')
 
-    words = text.word
-    letters = text.letter
-    phrases = text.phrases
+    words = missing_words
+    letters = missing_letters
+    phrases = missing_phrases
 
     devnull = open(os.devnull, 'w')
 
@@ -69,6 +78,8 @@ def generate_files():
         if os.path.exists(mp3_path):
             os.remove(mp3_path)
 
+    print('\n')
+
     for index, c in enumerate(words):
 
         print('Gerando arquivos de palavras. {}/{}'.format(index + 1, len(words)), end='\r')
@@ -83,6 +94,8 @@ def generate_files():
 
         if os.path.exists(mp3_path):
             os.remove(mp3_path)
+
+    print('\n')
 
     for index, row in enumerate(phrases):
 
@@ -99,4 +112,4 @@ def generate_files():
         if os.path.exists(mp3_path):
             os.remove(mp3_path)
 
-    print('Finalizado.')
+    print('\nFinalizado.')
