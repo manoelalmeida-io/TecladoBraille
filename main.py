@@ -1,6 +1,6 @@
 import setup
 import random
-import words as word
+import text as word
 from pynput import keyboard
 import simpleaudio as sa
 
@@ -50,20 +50,20 @@ def game(key):
         if key == keyboard.Key.space:
             mode = 0
             print('APRENDER')
-            play_async('sound/verification/aprender.wav')
+            play_async('sound/phrases/modo_aprender.wav')
 
         if key == keyboard.Key.enter:
             if palavra == words[0]:
                 print('correto!')
                 shuffle()
-                play_async('sound/verification/correto.wav')
+                play_async('sound/phrases/correto.wav')
             else:
                 if palavra == '':
                     shuffle()
                 else:
                     print('errado')
                     print(words[0])
-                    play_async('sound/verification/errado.wav')
+                    play_async('sound/phrases/incorreto.wav')
             palavra = ''
 
         if key == keyboard.Key.backspace:
@@ -71,8 +71,6 @@ def game(key):
 
         play_async('sound/keys/{}.wav'.format(str.upper(key.char)))
         palavra += key.char
-
-
 
     except AttributeError as error:
         pass
@@ -96,9 +94,8 @@ def learn(key):
         if key == keyboard.Key.space:
             mode = 1
             print('JOGAR')
-            play_async('sound/verification/jogo.wav')
+            play_async('sound/phrases/modo_jogo.wav')
             shuffle()
-
 
         play_async('sound/keys/{}.wav'.format(str.upper(key.char)))
 
